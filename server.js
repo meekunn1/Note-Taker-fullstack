@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const {v4: uuidv4} = require('uuid');
 const fs = require('fs');
+const {appendToFile} = require('./routes/notes.js')
 // const api = require('./routes/index.js');
 
 const PORT = process.env.PORT || 3001;
@@ -31,7 +32,7 @@ app.get('*', (req, res) =>
 );
 
 app.get('/api/notes', (req, res) => {
-  readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
+  fs.readFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
 app.post('/api/notes', (req,res) => {
@@ -42,25 +43,40 @@ app.post('/api/notes', (req,res) => {
     text,
     id: uuidv4(),
   };
-  const newNoteString = JSON.stringify(newNote);
-
-  fs.writeFile('./db/db.json', newNoteString, (err) =>
-  err 
-    ? console.error(err)
-    : console.log(`New Note have been added to database`)
-  );
-  const response = {
-    status: 'success',
-    body: newNote,
-  };
-
-  console.log(response);
-  res.status(201).json(response);
-
+  appendToFile(newNote, './db/db.json');
+  res.json('Note have been added.')
 } else {
-  res.status(500).json('Error in posting new note.');
+  res.error('error when adding note');
 }
 });
+
+// app.post('/api/notes', (req,res) => {
+//   const { title, text } = req.body;
+//   if (title && text) {
+//   const newNote = {
+//     title,
+//     text,
+//     id: uuidv4(),
+//   };
+//   const newNoteString = JSON.stringify(newNote);
+
+//   fs.writeFile('./db/db.json', newNoteString, (err) =>
+//   err 
+//     ? console.error(err)
+//     : console.log(`New Note have been added to database`)
+//   );
+//   const response = {
+//     status: 'success',
+//     body: newNote,
+//   };
+
+//   console.log(response);
+//   res.status(201).json(response);
+
+// } else {
+//   res.status(500).json('Error in posting new note.');
+// }
+// });
 
 app.listen(PORT, () => {
     console.log(`App listening to http://localhost:${PORT}`)

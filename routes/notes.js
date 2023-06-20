@@ -1,5 +1,9 @@
 const fs = require('fs');
-const { readFile, writeFile} = require('fs/promise')
+const util = require('util');
+// const { readFile, writeFile} = require('fs/promise')
+
+// Promise version of fs.readFile
+const readFromFile = util.promisify(fs.readFile);
 
 const writeToFile = (location, content) =>
     fs.writeFile(location, JSON.stringify(content, null, 4), (err) =>
@@ -9,9 +13,9 @@ const writeToFile = (location, content) =>
     );
 
 const appendToFile = (content , fileLocation) => {
-    readFile(file, 'utf8', (err, data) => {
+    fs.readFile(fileLocation, 'utf8', (err, data) => {
         if (err) {
-            console.err(err);
+            console.error(err);
         } else {
             const parseData = JSON.parse(data);
             parseData.push(content);

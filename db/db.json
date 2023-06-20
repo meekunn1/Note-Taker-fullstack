@@ -1,1 +1,16 @@
-{"title":"sample1","text":"content of sample1","id":"8a4137e9-8e92-4a61-ae5c-a55fb0ebe56e"}
+[
+    {
+        "title": "Test Title",
+        "text": "Test text"
+    },
+    {
+        "title": "test2",
+        "text": "content2",
+        "id": "d051d63f-c8cd-464c-b222-69d74a9a5a01"
+    },
+    {
+        "title": "git commit",
+        "text": "make a commit on github",
+        "id": "7f764f09-79af-45f7-8d0e-f9b36f202d1b"
+    }
+]
