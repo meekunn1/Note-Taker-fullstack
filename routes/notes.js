@@ -24,4 +24,4 @@ const appendToFile = (content , fileLocation) => {
     });
 };
 
-module.exports = {writeToFile, appendToFile };
+module.exports = { readFromFile, writeToFile, appendToFile };
