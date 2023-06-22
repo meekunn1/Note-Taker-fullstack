@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const {v4: uuidv4} = require('uuid');
 const fs = require('fs');
-const {readFromFile, appendToFile} = require('./routes/notes.js')
+const {readFromFile, appendToFile, deleteFromFile} = require('./routes/notes.js')
 // const api = require('./routes/index.js');
 
 const PORT = process.env.PORT || 3001;
@@ -26,11 +26,12 @@ app.get('/notes', (req, res) =>
 res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-
+//Route to read db.json
 app.get('/api/notes', (req, res) => {
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
+//Route for appending new notes to db.json
 app.post('/api/notes', (req,res) => {
   const { title, text } = req.body;
   if (title && text) {
@@ -42,8 +43,19 @@ app.post('/api/notes', (req,res) => {
   appendToFile(newNote, './db/db.json');
   res.json('Note have been added.')
 } else {
-  res.error('error when adding note');
+  res.json('error when adding note');
 }
+});
+
+// delete route attempt
+app.delete('/api/notes/:id', (req,res) => {
+ const { id } = req.params;
+ if (id) {
+ deleteFromFile(id, './db/db.json');
+ res.json('Note have been deleted.')
+ } else {
+  res.json('error when deleting note');
+ }
 });
 
 //all wildcard will be taken to index page

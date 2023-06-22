@@ -9,7 +9,7 @@ const writeToFile = (location, content) =>
     fs.writeFile(location, JSON.stringify(content, null, 4), (err) =>
     err
     ? console.error(err) 
-    : console.info(`successfully written to ${location}`)
+    : console.info(`Successfully updated ${location}`)
     );
 
 const appendToFile = (content , fileLocation) => {
@@ -24,4 +24,16 @@ const appendToFile = (content , fileLocation) => {
     });
 };
 
-module.exports = { readFromFile, writeToFile, appendToFile };
+const deleteFromFile = (id, fileLocation) => {
+    fs.readFile(fileLocation, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            const parseData = JSON.parse(data);
+            const deletedData = parseData.filter((parseData) => parseData.id !== id);
+            writeToFile(fileLocation, deletedData);
+        }
+    });
+}
+
+module.exports = { readFromFile, writeToFile, appendToFile, deleteFromFile };
