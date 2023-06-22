@@ -1,8 +1,7 @@
 const express = require('express');
 const path = require('path');
 const {v4: uuidv4} = require('uuid');
-const fs = require('fs');
-const {readFromFile, appendToFile, deleteFromFile} = require('./routes/notes.js')
+const {readFromFile, appendToFile, deleteFromFile} = require('./helpers/notes.js')
 // const api = require('./routes/index.js');
 
 const PORT = process.env.PORT || 3001;
