@@ -1,0 +1,21 @@
+[
+    {
+        "title": "Test Title",
+        "text": "Test text"
+    },
+    {
+        "title": "test2",
+        "text": "content2",
+        "id": "d051d63f-c8cd-464c-b222-69d74a9a5a01"
+    },
+    {
+        "title": "Welcome to Note Taker",
+        "text": "You can take notes using this app!",
+        "id": "b89b5dc1-b846-447c-ab12-b190bc8b114f"
+    },
+    {
+        "title": "This is a sample note",
+        "text": "This is the sample content of the sample note.",
+        "id": "fef171e0-57ed-4702-90d1-310a224467d6"
+    }
+]
